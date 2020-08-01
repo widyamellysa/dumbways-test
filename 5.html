@@ -1,0 +1,99 @@
+<?php
+  // Create database connection
+  $db = mysqli_connect("localhost", "root", "", "games");
+
+  // Initialize message variable
+  $msg = "";
+
+  // If upload button is clicked ...
+  if (isset($_POST['upload'])) {
+  	// Get image name
+  	$photo = $_FILES['name']['photo'];
+  	// Get text
+  	$name = mysqli_real_escape_string($db, $_POST['name']);
+
+  	// image file directory
+  	$target = "images/".basename($photo);
+
+  	$sql = "INSERT INTO heroes_tb (photo, name) VALUES ('$photo', '$name')";
+  	// execute query
+  	mysqli_query($db, $sql);
+
+  	if (move_uploaded_file($_FILES['photo']['tmp_name'], $target)) {
+  		$msg = "Image uploaded successfully";
+  	}else{
+  		$msg = "Failed to upload image";
+  	}
+  }
+  $result = mysqli_query($db, "SELECT * FROM heroes_tb");
+?>
+<!doctype html class="no-js"><!--<![endif]--><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Web Wiki Games</title>
+  <meta name="description" content="This is an awesome hero games.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="5.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+  <link rel="stylesheet" href="venobox/venobox.css" type="text/css" media="screen">
+</head>
+<body class="">
+  <div class="wrapper">
+      <!-- Header -->
+      <section class="top__section">
+          <header>
+              <h1>Hero Games</h1>
+              <p>We present you the Adventure Portal - your entrance to the far lands of the Will Hero world, filled with fascinating adventures, new dangers and priceless treasures!
+                Play anywhere and anytime!
+                Compete with friends and become a hero!
+                </p>
+          </header>
+      </section><!-- End Header Section-->
+      <!-- Content -->
+      <section class="content__section">
+          <div class="gallery__one">
+              <h4 class="gallery__title">Heroes List</h4>
+              <div class="gallery">
+                  <div class="gal" style="background-image: url(images/1.jpg)">
+                      
+                  </div>
+                  <div class="gal" style="background-image: url(images/2.jpg)">
+                      
+                  </div>
+                  <div class="gal" style="background-image: url(images/3.jpg)">
+                      
+                  </div>
+                  <div class="gal" style="background-image: url(images/4.jpg)">
+                     
+                  </div>
+                  <div class="gal" style="background-image: url(images/5.jpg)">
+                      
+                  </div>
+                  <div class="gal" style="background-image: url(images/6.jpg)">
+                      
+                  </div>
+                  <div class="gal" style="background-image: url(images/7.jpg)">
+                      
+                  </div>
+                  <div class="gal" style="background-image: url(images/8.jpg)">
+                     
+                  </div>
+              </div>
+          </div>
+      </section><!-- End Content Section -->
+  </div><!-- End Wrapper -->
+  <script type="text/javascript" src="jquery/jquery-3.4.1.min.js"></script>
+  <script type="text/javascript" src="venobox/venobox.min.js"></script>
+  <script>
+      $(document).ready(function(){
+          $('.venobox').venobox({
+              closeColor: '#f4f4f4',
+              spinColor: '#f4f4f4',
+              arrowsColor: '#f4f4f4',
+              closeBackground: '#17191D',
+              overlayColor: 'rgba(23,25,29,0.8)'
+          }); 
+      });
+  </script>
+
+</body></html>
